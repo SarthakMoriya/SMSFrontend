@@ -1,0 +1,100 @@
+<div class="bg-primary">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen lg:py-0"
+  >
+    <div
+      class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 border-2 border-secondary"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-blue md:text-2xl"
+        >
+          Sign in to your account
+        </h1>
+        <form
+          class="space-y-4 md:space-y-6"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="">
+            <label for="email" class="block mb-2 text-sm font-medium text-blue">
+              Email
+            </label>
+            <input
+              [ngClass]="{
+                'border-red-500 border-[3px]':
+                  emailInput?.invalid &&
+                  emailInput?.dirty &&
+                  emailInput?.touched
+              }"
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-blue sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="name@company.com"
+              formControlName="email"
+            />
+            @if (emailInput?.invalid && emailInput?.dirty &&
+            emailInput?.touched) {
+            <p class="text-red-500">
+              <i class="fa-solid fa-circle-exclamation" style="color: #ff0000">
+              </i>
+              please eneter a valid email address
+            </p>
+            }
+          </div>
+          <div class="">
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-blue"
+            >
+              password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              [ngClass]="{
+                'border-red-500 border-[3px]':
+                  passwordInput?.invalid &&
+                  passwordInput?.dirty &&
+                  passwordInput?.touched
+              }"
+              class="bg-gray-50 text-blue sm:text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@company.com"
+              formControlName="password"
+            />
+            @if (passwordInput?.invalid && passwordInput?.dirty &&
+            passwordInput?.touched) {
+            <p class="text-red-500">
+              <i class="fa-solid fa-circle-exclamation" style="color: #ff0000">
+              </i>
+              Minimum length 6 characters
+            </p>
+            }
+          </div>
+          <div class="flex items-center justify-between">
+            <a
+              href=""
+              class="text-sm font-medium text-primary-600 hover:underline text-blue"
+            >
+              Forgot Password?
+            </a>
+          </div>
+          <div class="">
+            <button
+              [disabled]="form.invalid && form.touched && form.dirty"
+              class="w-full text-blue bg-secondary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-gray-500"
+            >
+              Login
+            </button>
+          </div>
+          <p class="text-sm font-light text-blue">
+            Dont't have an account yet ?
+            <a href="" class="font-medium text-blue hover:underline">Signup</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
