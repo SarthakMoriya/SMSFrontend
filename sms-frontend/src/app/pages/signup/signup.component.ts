@@ -7,6 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { signup } from '../../../store/auth/auth.actions';
+import { Signup } from '../../models/authModels';
 
 @Component({
   selector: 'app-signup',
@@ -29,9 +32,17 @@ export class SignupComponent {
       validators: [Validators.required, Validators.minLength(4)],
     }),
   });
-
+  constructor(private store: Store) {}
   onSumbit() {
     console.log(this.signupForm.value);
+    const { username, password, email, passcode } = this.signupForm.value;
+    const body: Signup = {
+      username,
+      password,
+      email,
+      passcode,
+    };
+    this.store.dispatch(signup({ ...body }));
   }
 
   get passwordInput() {
