@@ -7,6 +7,8 @@ import { authReducer } from '../store/auth/auth.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects } from '../store/auth/auth.effects';
 import { provideHttpClient } from '@angular/common/http';
+import { recordsReducer } from '../store/record/record.reducer';
+import { RecordsEffects } from '../store/record/record.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({
       auth: authReducer,
+      records:recordsReducer
     }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects,RecordsEffects]),
     provideHttpClient(),
   ],
 };

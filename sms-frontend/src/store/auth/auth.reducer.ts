@@ -6,28 +6,48 @@ import {
   signupFailure,
   signupSuccess,
 } from './auth.actions';
-
-export interface UserState {
-  token: string | null;
-  userDetails: { passcode: string; name: string } | null;
-}
+import { UserState } from '../../app/models/user.model';
 
 export const initialState: UserState = {
-  token: null,
-  userDetails: null,
+  // token: '',
+  // name: '',
+  // email: '',
+  // passcode: '',
+  // id: '',
+  // verified: '',
+  // admin_approved: '',
+  // updated_at: '',
+  // created_at: '',
+
+  token:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWFjaGVySWQiOjE1LCJpYXQiOjE3MzcwNDI0MTUsImV4cCI6MTczNzEyODgxNX0.k7sdC1fhMuRAeg4Fy6tHQmcmPavxD9ed5qUbp5-VXIg',
+  name: 'Test',
+  email: 'test@gmail.com',
+  passcode: '1234',
+  id: '15',
+  verified: '0',
+  admin_approved: '0',
+  updated_at: '2025-01-11T13:42:56.000Z',
+  created_at: '2025-01-11T13:42:56.000Z',
 };
 
 export const authReducer = createReducer(
   initialState,
-  on(loginSuccess, (state, { token, userDetails }) => ({
+  on(loginSuccess, (state, payload) => ({
     ...state,
-    token,
-    userDetails,
+    ...payload,
   })),
   on(loginFailure, (state) => ({
     ...state,
-    token: null,
-    userDetails: null,
+    token: '',
+    name: '',
+    email: '',
+    passcode: '',
+    id: '',
+    verified: '',
+    admin_approved: '',
+    updated_at: '',
+    created_at: '',
   })),
   on(signupFailure, (state) => ({
     ...state,

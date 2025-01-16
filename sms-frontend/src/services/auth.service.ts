@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserState } from '../store/auth/auth.selector';
 import {
   ErrorInterface,
   Signup,
   SuccessInterface,
 } from '../app/models/authModels';
+import { UserState } from '../app/models/user.model';
 
 interface LoginResponse {
   token: string;

@@ -30,9 +30,9 @@ export class AuthEffects {
                 error: 'Login failed, no response',
               });
             }
+            this.router.navigate([''])
             return loginSuccess({
-              token: response.token,
-              userDetails: response.userDetails,
+              ...response,
             });
           }),
           catchError((error) => {

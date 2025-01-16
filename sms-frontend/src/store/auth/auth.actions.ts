@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Signup } from '../../app/models/authModels';
+import { UserState } from '../../app/models/user.model';
 
 //Emits an action having payload(username,password)
 export const login = createAction(
@@ -10,7 +11,7 @@ export const login = createAction(
 //Emits an acton with payload(token,userDetails)
 export const loginSuccess = createAction(
   '[Auth] LoginSuccess',
-  props<{ token: string; userDetails: { name: string; passcode: string } }>()
+  props<UserState>()
 );
 
 // Emits an action with payload (error)

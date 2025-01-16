@@ -1,0 +1,143 @@
+<div class="bg-blue-100">
+  <section
+    class="bg-gray-900 h-auto md:border-4 text-xs md:text-base lg:text-lg"
+  >
+    <div
+      class="md:border-2 bg-white py-8 px-4 mx-auto max-w-2xl lg:py-16 my-4 md:rounded-md"
+    >
+      <h2>Add a new Record</h2>
+      <div>
+        <img src="{url}" alt="" />
+        <label
+          htmlFor="picture"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Profile Photo
+        </label>
+        <input
+          type="file"
+          name="picture"
+          id="picture"
+          accept="image/*"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <button
+        class="w-full text-white bg-secondary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-gray-600 dark:focus:ring-primary-800 mt-1"
+      >
+        upload Image
+      </button>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="sm:col-span-2 mt-2">
+            <label
+              htmlFor="secretKey"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              Secret Key      
+            </label>
+            <input
+              type="text"
+              name="secretKey"
+              required="true"
+              id="secretKey"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="secretKey"
+              formControlName="passcode"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              for="name"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              Student Name
+            </label>
+            <input
+              type="text"
+              name="sName"
+              id="name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Type Student name"
+              formControlName="name"
+            />
+          </div>
+          <div class="w-full">
+            <label
+              htmlFor="coursename"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              Course name
+            </label>
+            <select
+              type="text"
+              name="cours"
+              id="coursename"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Course name"
+              formControlName="course"
+            >
+              <option value="bsccs">B.Sc-CS</option>
+              <option value="bscit">B.Sc-IT</option>
+            </select>
+          </div>
+          <div class="w-full">
+            <label
+              for="date"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              Date Enrolled
+            </label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="dd-mm-yyyy"
+              formControlName="dateEnrolled"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              htmlFor="studentId"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              College Roll Number
+            </label>
+            .
+            <input
+              type="number"
+              name="rollno"
+              id="studentId"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="College Roll Number "
+              formControlName="rollNo"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label
+              htmlFor="studentUni"
+              class="block mb-2 text-sm font-medium text-primary"
+            >
+              University Roll Number
+            </label>
+            <input
+              type="number"
+              name="studentUni"
+              id="studentUni"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="University Roll Number "
+              formControlName="universityRollNo"
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-full text-white bg-secondary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-gray-600 dark:focus:ring-primary-800 mt-1"
+        >
+          Add Record
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
