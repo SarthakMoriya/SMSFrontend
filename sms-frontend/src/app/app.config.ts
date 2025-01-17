@@ -12,6 +12,8 @@ import { AuthEffects } from '../store/auth/auth.effects';
 import { provideHttpClient } from '@angular/common/http';
 import { recordsReducer } from '../store/record/record.reducer';
 import { RecordsEffects } from '../store/record/record.effects';
+import { CourseEffects } from '../store/courses/course.effects';
+import { courseReducer } from '../store/courses/course.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,8 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       auth: authReducer,
       records: recordsReducer,
+      course:courseReducer
     }),
-    provideEffects([AuthEffects, RecordsEffects]),
+    provideEffects([AuthEffects, RecordsEffects,CourseEffects]),
     provideHttpClient(),
     provideAnimationsAsync(),
     providePrimeNG({

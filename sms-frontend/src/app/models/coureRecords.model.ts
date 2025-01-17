@@ -1,4 +1,5 @@
+import { Record } from "./record.model";
+
 export interface CourseRecords {
-  coursCode: string;
-  records: [any];
+  courseRecords: { courseCode: string; records: Record[] }[];
 }
