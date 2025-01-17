@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="min-h-100 w-100">
+  <div class="flex items-center">
+    <app-sidebar class="flex-[0.1]" />
+    <div class="h-24 text-3xl flex items-center justify-center flex-[0.9]">
+      Student Management System
+    </div>
+  </div>
+  <div class="">
+    <div class="card flex justify-center">
+      <p-multiselect
+        [options]="courses"
+        [(ngModel)]="course"
+        optionLabel="name"
+        placeholder="Select Course"
+        [maxSelectedLabels]="3"
+        styleClass="w-full md:w-80"
+        (ngModelChange)="onVariableChange($event)"
+      />
+    </div>
+  </div>
+</div>

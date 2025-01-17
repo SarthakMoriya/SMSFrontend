@@ -10,3 +10,8 @@ export const createRecordSuccess = createAction(
   props<{ record: Record }>()
 );
 export const createRecordFail = createAction('[User] CreateRecordFail');
+
+export const courseSelect=createAction(
+  '[User] CourseSelect',
+  props<{course:string}>()
+)

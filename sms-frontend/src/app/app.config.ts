@@ -1,6 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { authReducer } from '../store/auth/auth.reducer';
@@ -16,9 +19,15 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({
       auth: authReducer,
-      records:recordsReducer
+      records: recordsReducer,
     }),
-    provideEffects([AuthEffects,RecordsEffects]),
+    provideEffects([AuthEffects, RecordsEffects]),
     provideHttpClient(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+      },
+    }),
   ],
 };
