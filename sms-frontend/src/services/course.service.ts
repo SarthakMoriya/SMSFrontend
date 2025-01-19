@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CourseRecords } from '../app/models/coureRecords.model';
+import { CourseRecords, CourseRecordsSuccess } from '../app/models/coureRecords.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,8 @@ import { CourseRecords } from '../app/models/coureRecords.model';
 export class CourseService {
   constructor(private http: HttpClient) {}
 
-  getCourseRecords(courseCode: string): Observable<CourseRecords> {
-    return this.http.get<CourseRecords>(
+  getCourseRecords(courseCode: string): Observable<CourseRecordsSuccess> {
+    return this.http.get<CourseRecordsSuccess>(
       `http://localhost:3001/records/courserecords/${courseCode}`
     );
   }

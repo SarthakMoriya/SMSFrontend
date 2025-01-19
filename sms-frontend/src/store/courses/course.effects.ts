@@ -1,7 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { setCourseRecords, setCourseRecordsSuccess } from './courses.action';
+import {
+  setCourseRecords,
+  setCourseRecordsFail,
+  setCourseRecordsSuccess,
+} from './courses.action';
 import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
@@ -15,15 +19,16 @@ export class CourseEffects {
       switchMap(({ courseCode }) => {
         return this.courseService.getCourseRecords(courseCode).pipe(
           map((response) => {
+            console.log(response.body);
             if (!response) {
               console.log('ERROR GETTING COURSE RECORDS');
             }
-            console.log(response)
-            return setCourseRecordsSuccess();
+            console.log(response);
+            return setCourseRecordsSuccess(response);
           }),
           catchError(() => {
             console.log('ERROR');
-            return of(setCourseRecordsSuccess());
+            return of(setCourseRecordsFail());
           })
         );
       })

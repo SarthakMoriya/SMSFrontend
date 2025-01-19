@@ -8,9 +8,11 @@ import { Observable } from 'rxjs';
 import { CourseRecords } from '../../models/coureRecords.model';
 import { courseRecordsSelector } from '../../../store/courses/course.selector';
 import { setCourseRecords } from '../../../store/courses/courses.action';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
-  imports: [SidebarComponent, MultiSelectModule, FormsModule],
+  imports: [SidebarComponent, MultiSelectModule, FormsModule,CommonModule,RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -18,7 +20,7 @@ export class HomeComponent implements OnInit {
   courses: any = [];
   course: any = [];
   courseRecords$: Observable<CourseRecords> | undefined;
-  courseRecords: CourseRecords | undefined;
+  courseRecords:any=[];
 
   constructor(private store: Store) {}
 
@@ -28,12 +30,14 @@ export class HomeComponent implements OnInit {
     this.courseRecords$ = this.store.select(courseRecordsSelector);
 
     this.courseRecords$.subscribe((data) => {
-      console.log(data);
+      this.courseRecords=data.courseRecords
+      console.log(this.courseRecords)
     });
-
-    this.store.dispatch(setCourseRecords({ courseCode: 'bsccs' }));
   }
   onVariableChange(event: any) {
     console.log(event);
+    event.map((cc:any) => {
+      this.store.dispatch(setCourseRecords({ courseCode: cc.code }));
+    });
   }
 }
