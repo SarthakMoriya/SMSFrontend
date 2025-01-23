@@ -9,10 +9,15 @@ import { CourseRecords } from '../../models/coureRecords.model';
 import { courseRecordsSelector } from '../../../store/courses/course.selector';
 import { setCourseRecords } from '../../../store/courses/courses.action';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-home',
-  imports: [SidebarComponent, MultiSelectModule, FormsModule,CommonModule,RouterLink],
+  imports: [
+    SidebarComponent,
+    MultiSelectModule,
+    FormsModule,
+    CommonModule,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -20,9 +25,9 @@ export class HomeComponent implements OnInit {
   courses: any = [];
   course: any = [];
   courseRecords$: Observable<CourseRecords> | undefined;
-  courseRecords:any=[];
+  courseRecords: any = [];
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.courses = dummycourses;
@@ -30,14 +35,20 @@ export class HomeComponent implements OnInit {
     this.courseRecords$ = this.store.select(courseRecordsSelector);
 
     this.courseRecords$.subscribe((data) => {
-      this.courseRecords=data.courseRecords
-      console.log(this.courseRecords)
+      this.courseRecords = data.courseRecords;
+      console.log(this.courseRecords);
     });
   }
   onVariableChange(event: any) {
     console.log(event);
-    event.map((cc:any) => {
+    event.map((cc: any) => {
       this.store.dispatch(setCourseRecords({ courseCode: cc.code }));
+    });
+  }
+  onRecordsClick(record: any) {
+    console.log(record)
+    this.router.navigate(['user', record.studId], {
+      queryParams: { ...record },
     });
   }
 }

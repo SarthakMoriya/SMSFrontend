@@ -27,7 +27,7 @@
       <div
         class="flex items-start justify-center"
         *ngFor="let record of courses.records"
-        [routerLink]="['']" routerLinkActive="router-link-active" 
+        (click)="onRecordsClick(record)"
       >
         <div
           class="max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-200"

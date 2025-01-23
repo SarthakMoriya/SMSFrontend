@@ -1,0 +1,69 @@
+<div class="card flex justify-center">
+  <p-button (click)="showDialog()" label="Add Exam" icon="pi pi-book" />
+  <p-dialog
+    header="Add Exam"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '35rem' }"
+  >
+    <div class="card flex flex-wrap justify-center items-end gap-4">
+      <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+        <div class="flex gap-4 mb-4">
+          <div class="card flex justify-center">
+            <p-select
+              [options]="courses"
+              formControlName="semester"
+              optionLabel="name"
+              placeholder="Semester"
+              class="w-full md:w-56"
+            />
+          </div>
+          <div class="card flex justify-center">
+            <p-select
+              [options]="examSessions"
+              formControlName="examType"
+              optionLabel="name"
+              placeholder="Exam Type"
+              class="w-full md:w-56"
+            />
+          </div>
+        </div>
+        <p-inputgroup class="mb-2">
+          <p-floatlabel variant="in">
+            <input pInputText id="over_label" formControlName="examName" />
+            <label for="over_label">Exam Name*</label>
+          </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup class="mb-2">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              id="over_label"
+              formControlName="totalMarks"
+              type="number"
+            />
+            <label for="over_label">Total Marks*</label>
+          </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup class="mb-4">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              id="over_label"
+              formControlName="obtMarks"
+              type="number"
+            />
+            <label for="over_label">Obtained Marks*</label>
+          </p-floatlabel>
+        </p-inputgroup>
+
+        <p-button
+          label="Add Exam"
+          type="submit"
+          [disabled]="examForm.invalid"
+          class="disabled:cursor-not-allowed"
+        />
+      </form>
+    </div>
+  </p-dialog>
+</div>
