@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -14,6 +18,12 @@ import { recordsReducer } from '../store/record/record.reducer';
 import { RecordsEffects } from '../store/record/record.effects';
 import { CourseEffects } from '../store/courses/course.effects';
 import { courseReducer } from '../store/courses/course.reducer';
+import { examReducer } from '../store/exams/exam.reducer';
+import { ExamEffects } from '../store/exams/exam.effects';
+
+import { provideAnimations } from '@angular/platform-browser/animations'; // Required for PrimeNG Toast
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,9 +32,10 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       auth: authReducer,
       records: recordsReducer,
-      course:courseReducer
+      course: courseReducer,
+      exam: examReducer,
     }),
-    provideEffects([AuthEffects, RecordsEffects,CourseEffects]),
+    provideEffects([AuthEffects, RecordsEffects, CourseEffects, ExamEffects]),
     provideHttpClient(),
     provideAnimationsAsync(),
     providePrimeNG({
@@ -32,5 +43,7 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
+    MessageService,
+    importProvidersFrom(ToastModule),
   ],
 };

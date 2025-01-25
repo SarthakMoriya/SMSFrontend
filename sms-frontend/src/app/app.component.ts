@@ -3,10 +3,10 @@ import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectUserToken } from '../store/auth/auth.selector';
-
+import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,Toast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
