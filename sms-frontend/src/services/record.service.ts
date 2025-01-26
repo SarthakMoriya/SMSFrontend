@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Record } from '../app/models/record.model';
 import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
+import { SuccessResponse } from '../app/models/exam.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,22 @@ export class RecordsService {
       })
       .catch((err) => {
         console.log(err);
+      });
+  }
+
+  async getSemesterExamTotal(stuId: string, course: string) {
+    return this.service
+      .getData(
+        `http://localhost:3002/exams/all-semester-total/${stuId}/${course}`
+      )
+      .then((data) => {
+        const { code, body } = data as SuccessResponse;
+        console.log(body);
+        return body;
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
       });
   }
 }

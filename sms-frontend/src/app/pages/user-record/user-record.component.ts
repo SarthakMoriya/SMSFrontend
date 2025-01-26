@@ -6,16 +6,25 @@ import { ButtonModule } from 'primeng/button';
 import { AddExamFormComponent } from './add-exam-form/add-exam-form.component';
 import { ExamsService } from '../../../services/exams.service';
 import { CommonModule } from '@angular/common';
+import { SemesterTotalComponent } from './semester-total/semester-total.component';
+import { UserRecordService } from '../../../services/pages/user-record.service';
 
 @Component({
   selector: 'app-user-record',
-  imports: [ButtonModule, AddExamFormComponent, TableModule, CommonModule],
+  imports: [
+    ButtonModule,
+    AddExamFormComponent,
+    TableModule,
+    CommonModule,
+    SemesterTotalComponent,
+  ],
   templateUrl: './user-record.component.html',
   styleUrl: './user-record.component.scss',
 })
 export class UserRecordComponent implements OnInit {
   service = inject(RecordsService);
   router = inject(ActivatedRoute);
+  userRecordSrv = inject(UserRecordService);
   private examsSrv = inject(ExamsService);
 
   userData: any = {};
@@ -38,6 +47,8 @@ export class UserRecordComponent implements OnInit {
     this.userData = { ...params, ...queryParams };
 
     this.fetchSemesterExams(1);
+
+    this.userRecordSrv.updateData(this.userData);
   }
   addExam() {
     this.isAddingExam = true;

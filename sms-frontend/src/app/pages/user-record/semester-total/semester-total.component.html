@@ -1,0 +1,28 @@
+<div class="card mt-8" *ngIf="semesterTotal.length">
+    <p-table [value]="semesterTotal" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="semester_number" style="width: 20%">
+            Semester <p-sortIcon field="semester_number" />
+          </th>
+          <th pSortableColumn="obt_marks" style="width: 20%">
+            Marks Obt.<p-sortIcon field="obt_marks" />
+          </th>
+          <th pSortableColumn="total_marks" style="width: 20%">
+            Total Marks<p-sortIcon field="total_marks" />
+          </th>
+          <th pSortableColumn="overall_percentage" style="width: 20%">
+            Percentage<p-sortIcon field="overall_percentage" />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-semester>
+        <tr>
+          <td>{{ semester.semester_number }}</td>
+          <td>{{ semester.obt_marks }}</td>
+          <td>{{ semester.total_marks }}</td>
+          <td>{{ semester.overall_percentage }}%</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>

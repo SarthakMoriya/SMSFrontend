@@ -2,6 +2,8 @@
   <div class="">
     <app-add-exam-form />
   </div>
+  <app-semester-total/>
+
   <div class="flex items-start justify-evenly mt-4">
     @for (semester of semesters; track $index) {
     <p-button
@@ -17,16 +19,16 @@
       <ng-template #header>
         <tr>
           <th pSortableColumn="exam_name" style="width: 20%">
-            Exam Name <p-sortIcon field="code" />
+            Exam Name <p-sortIcon field="exam_name" />
           </th>
           <th pSortableColumn="obt_marks" style="width: 20%">
-            Marks Obt.<p-sortIcon field="name" />
+            Marks Obt.<p-sortIcon field="obt_marks" />
           </th>
           <th pSortableColumn="total_marks" style="width: 20%">
-            Total Marks<p-sortIcon field="category" />
+            Total Marks<p-sortIcon field="total_marks" />
           </th>
           <th pSortableColumn="exam_type" style="width: 20%">
-            Exam Type<p-sortIcon field="quantity" />
+            Exam Type<p-sortIcon field="exam_type" />
           </th>
         </tr>
       </ng-template>
