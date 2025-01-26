@@ -16,4 +16,10 @@ export interface ExamAddSuccess {
   status: string;
   body: [];
 }
+export interface SuccessResponse {
+  message: string;
+  code: number;
+  status: string;
+  body: [];
+}
 

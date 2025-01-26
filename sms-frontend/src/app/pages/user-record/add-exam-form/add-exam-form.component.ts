@@ -95,7 +95,7 @@ export class AddExamFormComponent implements OnInit {
   teacher_id: number | undefined;
   course_name: string | undefined;
   selectedSemester = 'Semester-1';
-  visible: boolean = true;
+  visible: boolean = false;
 
   ngOnInit() {
     const { queryParams } = this.router.snapshot;

@@ -1,5 +1,43 @@
-<div class="">
+<div class="mx-16">
   <div class="">
     <app-add-exam-form />
+  </div>
+  <div class="flex items-start justify-evenly mt-4">
+    @for (semester of semesters; track $index) {
+    <p-button
+      label="Semester {{ semester }}"
+      (onClick)="fetchSemesterExams(semester)"
+      outlined="{{ selectedSemester != semester }}"
+      raised="false"
+    />
+    }
+  </div>
+  <div class="card mt-8" *ngIf="exams.length">
+    <p-table [value]="exams" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="exam_name" style="width: 20%">
+            Exam Name <p-sortIcon field="code" />
+          </th>
+          <th pSortableColumn="obt_marks" style="width: 20%">
+            Marks Obt.<p-sortIcon field="name" />
+          </th>
+          <th pSortableColumn="total_marks" style="width: 20%">
+            Total Marks<p-sortIcon field="category" />
+          </th>
+          <th pSortableColumn="exam_type" style="width: 20%">
+            Exam Type<p-sortIcon field="quantity" />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-exam>
+        <tr>
+          <td>{{ exam.exam_name }}</td>
+          <td>{{ exam.obt_marks }}</td>
+          <td>{{ exam.total_marks }}</td>
+          <td>{{ exam.exam_type == "mt" ? "mid-term" : "final" }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
