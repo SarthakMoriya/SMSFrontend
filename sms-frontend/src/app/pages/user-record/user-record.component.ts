@@ -8,6 +8,7 @@ import { ExamsService } from '../../../services/exams.service';
 import { CommonModule } from '@angular/common';
 import { SemesterTotalComponent } from './semester-total/semester-total.component';
 import { UserRecordService } from '../../../services/pages/user-record.service';
+import { StackbarChartComponent } from "./stackbar-chart/stackbar-chart.component";
 
 @Component({
   selector: 'app-user-record',
@@ -17,7 +18,8 @@ import { UserRecordService } from '../../../services/pages/user-record.service';
     TableModule,
     CommonModule,
     SemesterTotalComponent,
-  ],
+    StackbarChartComponent
+],
   templateUrl: './user-record.component.html',
   styleUrl: './user-record.component.scss',
 })

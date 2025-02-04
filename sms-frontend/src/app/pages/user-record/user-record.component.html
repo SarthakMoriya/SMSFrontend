@@ -2,7 +2,7 @@
   <div class="">
     <app-add-exam-form />
   </div>
-  <app-semester-total/>
+  <app-semester-total />
 
   <div class="flex items-start justify-evenly mt-4">
     @for (semester of semesters; track $index) {
@@ -41,5 +41,8 @@
         </tr>
       </ng-template>
     </p-table>
+  </div>
+  <div class="w-3/12">
+    <app-stackbar-chart />
   </div>
 </div>
