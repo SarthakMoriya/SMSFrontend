@@ -1,0 +1,88 @@
+<div class="border flex shadow-md bg-zinc-900 mt-8 mb-10 rounded-lg shadow-zinc-600">
+  <div class="w-1/4 m-4 flex items-center justify-center">
+    <img class="w-3/4 h-3/4 border border-black rounded-lg" />
+  </div>
+  <div class="w-1/4">
+    <div class="flex justify-between items-center  mt-4 gap-11">
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Name</div>
+        <div class="text-xl">{{ userData?.stu_name }}</div>
+      </div>
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Course</div>
+        <div class="text-xl">{{ userData?.course }}</div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center  mt-4 gap-11">
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Roll Number</div>
+        <div class="text-xl">{{ userData?.rollno }}</div>
+      </div>
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Uni Roll No.</div>
+        <div class="text-xl">{{ userData?.uni_roll_no }}</div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center  my-4 gap-11">
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Percentage</div>
+        <div class="text-xl">
+          <div>{{ userData?.overall_percentage }}</div>
+        </div>
+      </div>
+      <div
+        class="shadow-lg  rounded-xl p-2 bg-emerald-400 text-white w-1/2"
+      >
+        <div class="text-sm font-bold">Year</div>
+        <div class="text-xl">{{ userData?.batch }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="w-2/4 flex justify-center items-center gap-11">
+    <!-- Semester Progress Circle -->
+    <div class="relative w-44 h-44 flex items-center justify-center">
+      <div class="absolute w-full h-full rounded-full bg-zinc-700"></div>
+      <div
+        class="absolute w-full h-full rounded-full bg-transparent border-[10px] border-emerald-400"
+        [ngStyle]="{
+          mask: semesterProgressBar,
+          '-webkit-mask': semesterProgressBar
+        }"
+      ></div>
+      <div
+        class="absolute flex flex-col items-center justify-center w-full h-full text-white font-bold"
+      >
+        <div>Semester</div>
+        <div>{{ userData?.semester_done }}/{{ userData?.semester }}</div>
+      </div>
+    </div>
+
+    <!-- Percentage Progress Circle -->
+    <div class="relative w-44 h-44 flex items-center justify-center">
+      <div class="absolute w-full h-full rounded-full bg-zinc-700"></div>
+      <div
+        class="absolute w-full h-full rounded-full bg-transparent border-[10px] border-emerald-400"
+        [ngStyle]="{
+          mask: percentageProgressBar,
+          '-webkit-mask': percentageProgressBar
+        }"
+      ></div>
+      <div
+        class="absolute flex flex-col items-center justify-center w-full h-full text-white font-bold"
+      >
+        <div>Percentage</div>
+        <div>{{ userData?.overall_percentage }}</div>
+      </div>
+    </div>
+  </div>
+</div>

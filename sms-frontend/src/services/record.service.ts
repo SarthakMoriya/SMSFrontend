@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Record } from '../app/models/record.model';
-import { Observable } from 'rxjs';
+import { Record, StudentRecord } from '../app/models/record.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service';
 import { SuccessResponse } from '../app/models/exam.model';
 
@@ -35,12 +35,28 @@ export class RecordsService {
       )
       .then((data) => {
         const { code, body } = data as SuccessResponse;
-        console.log(body);
         return body;
       })
       .catch((err) => {
         console.log(err);
         return [];
+      });
+  }
+
+  async getStudentProfileData(userId: string | number) {
+    return this.service
+      .getData(`http://localhost:3001/records/userinfo/${userId}`)
+      .then((data) => {
+        const { code, body, status } = data as SuccessResponse;
+        if (code === 200 && status == 'success') {
+          return body;
+        } else {
+          return undefined;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return undefined;
       });
   }
 }
