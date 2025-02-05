@@ -20,6 +20,6 @@ export interface SuccessResponse {
   message: string;
   code: number;
   status: string;
-  body: [];
+  body: [] |  any;
 }
 
