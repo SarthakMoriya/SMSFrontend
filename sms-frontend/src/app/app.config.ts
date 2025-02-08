@@ -24,6 +24,8 @@ import { ExamEffects } from '../store/exams/exam.effects';
 import { provideAnimations } from '@angular/platform-browser/animations'; // Required for PrimeNG Toast
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { adminReducer } from '../store/admin/admin.reducer';
+import { AdminEffect } from '../store/admin/admin.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,8 +36,9 @@ export const appConfig: ApplicationConfig = {
       records: recordsReducer,
       course: courseReducer,
       exam: examReducer,
+      admin:adminReducer
     }),
-    provideEffects([AuthEffects, RecordsEffects, CourseEffects, ExamEffects]),
+    provideEffects([AuthEffects, RecordsEffects, CourseEffects, ExamEffects,AdminEffect]),
     provideHttpClient(),
     provideAnimationsAsync(),
     providePrimeNG({
