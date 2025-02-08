@@ -4,6 +4,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { CreateRecordComponent } from './pages/create-record/create-record.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserRecordComponent } from './pages/user-record/user-record.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path:'user/:id',
     component:UserRecordComponent
+  },
+  {
+    path:'admin',
+    component:AdminComponent
   }
 ];
