@@ -21,10 +21,10 @@ import { RecordsSelector } from '../../../store/record/record.selector';
 })
 export class LoginComponent implements OnInit {
   form = new FormGroup({
-    email: new FormControl('test@gmail.com', {
+    email: new FormControl('admin@gmail.com', {
       validators: [Validators.required, Validators.email],
     }),
-    password: new FormControl('123456', {
+    password: new FormControl('admin', {
       validators: [Validators.required, Validators.minLength(2)],
     }),
   });

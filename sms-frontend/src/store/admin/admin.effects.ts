@@ -3,6 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   addCourse,
   addCourseError,
+  addCourseExam,
+  addCourseExamFailure,
+  addCourseExamSuccess,
   addCourseSuccess,
   getCourses,
   getCoursesFailure,
@@ -60,4 +63,26 @@ export class AdminEffect {
       })
     )
   );
+
+  insertCourseExam$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addCourseExam),
+      switchMap((exam) => {
+        return this.service.insertCourseExam(exam).pipe(
+          map((response) => {
+            if (response.code!=200 || response.status!='success') {
+              this.toastSrv.showError('Failed to add exam!');
+              return addCourseExamFailure({ message: 'Failed to add exam' });
+            }
+            this.toastSrv.showSuccess('Exam Added');
+            return addCourseExamSuccess();
+          }),
+          catchError(() => {
+            this.toastSrv.showError('Failed to add exam!');
+            return of(addCourseExamFailure({ message: 'Failed to add exam' }));
+          })
+        );
+      })
+    );
+  });
 }

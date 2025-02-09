@@ -1,0 +1,98 @@
+<p-button (click)="showDialog()" label="Show" />
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <span class="p-text-secondary block mb-8">Add Exam.</span>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="course" class="font-semibold w-24">Course</label>
+      <div class="card flex justify-center">
+        <p-select
+          [options]="courses"
+          (onChange)="handleCourseSelect($event)"
+          formControlName="selectedCourse"
+          optionLabel="name"
+          placeholder="Course"
+          class="w-full md:w-56"
+        />
+      </div>
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="code" class="font-semibold w-24">Semester</label>
+      <p-select
+        [options]="selectedCoursesemesters"
+        formControlName="semester"
+        optionLabel="name"
+        placeholder="Semester"
+        class="w-full md:w-56"
+      />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="name" class="font-semibold w-24">Name</label>
+      <input
+        pInputText
+        id="name"
+        class="flex-auto"
+        formControlName="exam_name"
+        autocomplete="off"
+        placeholder="Exam name"
+      />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="code" class="font-semibold w-24">Code</label>
+      <input
+        pInputText
+        id="code"
+        class="flex-auto"
+        formControlName="exam_code"
+        autocomplete="off"
+        placeholder="Exam code"
+        (change)="handleExamCode()"
+      />
+    </div>
+    <div class="mb-4" *ngIf="form.get('exam_code')?.hasError('exam_code')">
+      This exam code is already taken.
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="code" class="font-semibold w-24">Min Marks</label>
+      <input
+        pInputText
+        id="code"
+        class="flex-auto"
+        formControlName="min_marks"
+        autocomplete="off"
+        placeholder="Min Marks"
+      />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+      <label for="code" class="font-semibold w-24">Max Marks</label>
+      <input
+        pInputText
+        id="code"
+        class="flex-auto"
+        formControlName="max_marks"
+        autocomplete="off"
+        placeholder="Min Marks"
+      />
+    </div>
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+      <p-button label="Save" (click)="onSubmit()" />
+    </div>
+    @if (addExamLoader && addExamError==false) {
+    <div class="card flex justify-center">
+      <p-progress-spinner
+        strokeWidth="8"
+        fill="transparent"
+        animationDuration=".5s"
+        [style]="{ width: '50px', height: '50px' }"
+      />
+    </div>
+    } @if (addExamError) {
+    <p class="text-red-500 m-2 font-bold">Failed to add exam</p>
+    }
+  </form>
+</p-dialog>
