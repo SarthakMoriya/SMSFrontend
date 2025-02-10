@@ -19,4 +19,5 @@ export interface UserState {
   admin_approved: string;
   updated_at: string;
   created_at: string;
+  role:'USER'|'ADMIN' | string;
 }

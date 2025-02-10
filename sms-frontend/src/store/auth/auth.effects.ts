@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class AuthEffects {
   private actions$ = inject(Actions);
   authService = inject(AuthService);
-  router=inject(Router)
+  router = inject(Router);
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(login),
@@ -30,7 +30,11 @@ export class AuthEffects {
                 error: 'Login failed, no response',
               });
             }
-            this.router.navigate([''])
+            if (response.role === 'ADMIN') {
+              this.router.navigate(['admin']);
+            } else {
+              this.router.navigate(['']);
+            }
             return loginSuccess({
               ...response,
             });
@@ -51,8 +55,8 @@ export class AuthEffects {
   signup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signup),
-      switchMap((userData:Signup) => {
-        return this.authService.signup({...userData}).pipe(
+      switchMap((userData: Signup) => {
+        return this.authService.signup({ ...userData }).pipe(
           map((response) => {
             if (!response) {
               console.log('ERROR IN SIGNUP');

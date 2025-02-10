@@ -1,0 +1,62 @@
+<div class="card flex justify-center">
+  <p-button (click)="showDialog()" label="Add Course" icon="pi pi-book" />
+  <p-dialog
+    header="Add Course"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '35rem', 'overflow-y': 'none !important' }"
+    [contentStyle]="{ 'overflow-y': 'visible' }"
+  >
+    <div class="card flex flex-wrap justify-center items-end gap-4">
+      <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+        <div class="flex gap-4 mb-4">
+          <div class="card flex justify-center">
+            <p-select
+              [options]="semesters"
+              formControlName="semester"
+              optionLabel="name"
+              placeholder="Semester"
+              class="w-full md:w-56"
+            />
+          </div>
+        </div>
+        <p-inputgroup class="mb-2">
+          <p-floatlabel variant="in">
+            <input pInputText id="over_label" formControlName="course_name" />
+            <label for="over_label">Course Name*</label>
+          </p-floatlabel>
+        </p-inputgroup>
+        <p-inputgroup class="mb-2">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              id="over_label"
+              formControlName="course_code"
+              type="text"
+            />
+            <label for="over_label">Course Code*</label>
+          </p-floatlabel>
+        </p-inputgroup>
+
+        @if (loader && !isError) {
+        <div class="card flex justify-center">
+          <p-progress-spinner
+            strokeWidth="8"
+            fill="transparent"
+            animationDuration=".5s"
+            [style]="{ width: '50px', height: '50px' }"
+          />
+        </div>
+        } @if (isError) {
+        <p class="text-red-500 m-2 font-bold">{{errorMessage}}</p>
+        }
+        <p-button
+          label="Add Course"
+          type="submit"
+          [disabled]="examForm.invalid || loader"
+          class="disabled:cursor-not-allowed"
+        />
+      </form>
+    </div>
+  </p-dialog>
+</div>

@@ -34,3 +34,5 @@ export const signupFailure = createAction(
   '[Auth] SignupFailure',
   props<{ error: string }>()
 );
+
+export const logout = createAction('[Auth] Logout');
