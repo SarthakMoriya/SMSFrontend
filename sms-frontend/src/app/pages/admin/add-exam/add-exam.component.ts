@@ -55,7 +55,7 @@ export class AddExamComponent implements OnInit, OnDestroy {
   addExamLoader = false;
   addExamError: string | boolean = false;
 
-  visible: boolean = true;
+  visible: boolean = false;
 
   form = new FormGroup({
     exam_name: new FormControl('DSA', {
