@@ -4,6 +4,8 @@ export interface Record {
   teacher_id: number | null | undefined;
   course: string | null | undefined;
   rollno: number | null | undefined | string;
+  image_url: string | null | undefined;
+  uni_roll_no: number | null | undefined | string;
 }
 
 export interface Records {
@@ -13,9 +15,9 @@ export interface Records {
 export interface StudentRecord {
   studId: number | null | undefined;
   stu_name: number | null | undefined;
-  date_enrolled: SVGStringList;
+  date_enrolled: Date;
   teacher_id: number | null | undefined;
-  profile: number | null | undefined;
+  image_url: number | null | undefined;
   certificate: number | null | undefined;
   course: number | null | undefined;
   rollno: number | null | undefined;
@@ -23,6 +25,6 @@ export interface StudentRecord {
   duration: number | null | undefined;
   semester: number | null | undefined;
   batch: string;
-  overall_percentage: string | undefined;
-  semester_done: number | null | undefined;
+  percentage: string | undefined;
+  curr_semester: number | null | undefined;
 }

@@ -23,13 +23,11 @@ export class RecordsEffects {
         return this.recordsService.createRecord(record).pipe(
           map((response) => {
             if (!response) {
-              console.log('Errro');
             }
-            this.router.navigate(['/login']);
+            this.router.navigate(['']);
             return createRecordSuccess({ record });
           }),
           catchError((error) => {
-            console.error('Login error:', error);
             return of(createRecordFail());
           })
         );

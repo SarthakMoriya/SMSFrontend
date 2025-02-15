@@ -45,7 +45,7 @@ export class RecordsService {
 
   async getStudentProfileData(userId: string | number) {
     return this.service
-      .getData(`http://localhost:3001/records/userinfo/${userId}`)
+      .getData(`http://localhost:3001/records/record/${userId}`)
       .then((data) => {
         const { code, body, status } = data as SuccessResponse;
         if (code === 200 && status == 'success') {
