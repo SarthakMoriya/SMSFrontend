@@ -4,6 +4,8 @@ export interface Record {
   teacher_id: number | null | undefined;
   course: string | null | undefined;
   rollno: number | null | undefined | string;
+  image_url: string | null | undefined;
+  uni_roll_no: number | null | undefined | string;
 }
 
 export interface Records {
