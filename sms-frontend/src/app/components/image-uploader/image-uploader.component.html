@@ -1,0 +1,25 @@
+<!-- <uc-config
+  ctx-name="my-uploader"
+  source-list="local, camera"
+  camera-modes="photo"
+  pubkey="e377f26628c8f78563a6"
+></uc-config>
+
+<uc-file-uploader-regular
+  ctx-name="my-uploader"
+  class="uc-dark uc-green"
+  #uploader
+></uc-file-uploader-regular> -->
+
+<uc-config
+  ctx-name="my-uploader-3"
+  pubkey="e377f26628c8f78563a6"
+  source-list="local, url"
+  multiple="false"
+  title="Add Photu"
+></uc-config>
+<uc-file-uploader-regular ctx-name="my-uploader-3"></uc-file-uploader-regular>
+<uc-upload-ctx-provider
+  ctx-name="my-uploader-3"
+  #ctxProvider
+></uc-upload-ctx-provider>

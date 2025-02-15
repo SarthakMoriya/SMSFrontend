@@ -13,16 +13,20 @@ import { selectUserDetails } from '../../../store/auth/auth.selector';
 import { UserDetailsState } from '../../models/user.model';
 import { createRecord } from '../../../store/record/record.actions';
 import { Record } from '../../models/record.model';
+import { ImageUploaderComponent } from '../../components/image-uploader/image-uploader.component';
 
 @Component({
   selector: 'app-create-record',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ImageUploaderComponent],
   templateUrl: './create-record.component.html',
   styleUrl: './create-record.component.scss',
 })
 export class CreateRecordComponent implements OnInit {
   user$: Observable<UserDetailsState> | undefined;
   user: UserDetailsState | undefined;
+
+  image_url: string=''
+
   constructor(private store: Store) {}
 
   ngOnInit() {
@@ -49,7 +53,7 @@ export class CreateRecordComponent implements OnInit {
       validators: [Validators.required, Validators.minLength(4)],
     }),
     universityRollNo: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(4)],
+      validators: [],
     }),
     passcode: new FormControl('1234', {
       validators: [Validators.required, Validators.minLength(4)],
@@ -79,7 +83,7 @@ export class CreateRecordComponent implements OnInit {
   onSubmit() {
     const { passcode, universityRollNo, rollNo, dateEnrolled, course, name } =
       this.form.value;
-      console.log(passcode,this.user?.passcode)
+    console.log(passcode, this.user?.passcode);
     if (!passcode || passcode != this.user?.passcode) {
       alert('Passcode does not match!');
       return;
@@ -89,9 +93,14 @@ export class CreateRecordComponent implements OnInit {
       date_enrolled: dateEnrolled,
       teacher_id: parseInt(this.user.id),
       course,
-      rollno:rollNo,
+      rollno: rollNo,
+      image_url: this.image_url,
+      uni_roll_no:universityRollNo
     };
-    console.log(body)
     this.store.dispatch(createRecord({ record: body }));
+  }
+
+  handleCloseModal(files: any) {
+    this.image_url=files[0].cdnUrl;
   }
 }
