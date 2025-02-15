@@ -45,5 +45,7 @@ export class SemesterTotalComponent implements OnInit, OnDestroy {
       this.userData.id,
       this.userData.course
     );
+    console.log(this.semesterTotal)
+    this.userRecordParentSrv.updateSemesterGraphData(this.semesterTotal)
   }
 }
