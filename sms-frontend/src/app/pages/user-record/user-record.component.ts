@@ -8,8 +8,8 @@ import { ExamsService } from '../../../services/exams.service';
 import { CommonModule } from '@angular/common';
 import { SemesterTotalComponent } from './semester-total/semester-total.component';
 import { UserRecordService } from '../../../services/pages/user-record.service';
-import { StackbarChartComponent } from "./stackbar-chart/stackbar-chart.component";
-import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { StackbarChartComponent } from './stackbar-chart/stackbar-chart.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
   selector: 'app-user-record',
@@ -20,8 +20,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
     CommonModule,
     SemesterTotalComponent,
     StackbarChartComponent,
-    UserProfileComponent
-],
+    UserProfileComponent,
+  ],
   templateUrl: './user-record.component.html',
   styleUrl: './user-record.component.scss',
 })
@@ -33,6 +33,7 @@ export class UserRecordComponent implements OnInit {
 
   userData: any = {};
   isAddingExam: boolean = false;
+  semestersGraphData: any = {};
 
   semesters = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedSemester = 0;
@@ -53,6 +54,19 @@ export class UserRecordComponent implements OnInit {
     this.fetchSemesterExams(1);
 
     this.userRecordSrv.updateData(this.userData);
+
+    this.userRecordSrv.semesterGraph.subscribe((data) => {
+      console.log(data);
+      if (data) {
+        let datapoints = data.map((item: any) => item.overall_percentage);
+        let axis = data.map((item: any) => item.semester_number);
+        this.semestersGraphData = {
+          datapoints,
+          axis,
+        };
+        console.log(this.semestersGraphData)
+      }
+    });
   }
   addExam() {
     this.isAddingExam = true;

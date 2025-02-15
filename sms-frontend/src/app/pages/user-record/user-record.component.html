@@ -1,5 +1,5 @@
 <div class="mx-16">
-  <app-user-profile/>
+  <app-user-profile />
   <div class="">
     <app-add-exam-form />
   </div>
@@ -43,7 +43,24 @@
       </ng-template>
     </p-table>
   </div>
-  <div class="w-3/12">
-    <app-stackbar-chart />
+  <div class="flex gap-4">
+    <div class="w-3/12">
+      <div class="" id="chart"></div>
+      <app-stackbar-chart
+        *ngIf="semestersGraphData.datapoints.length"
+        [dataPoints]="semestersGraphData.datapoints"
+        [axis]="semestersGraphData.axis"
+        [chartId]="'chart'"
+      />
+    </div>
+    <div class="w-3/12">
+      <div class="" id="chart1"></div>
+      <app-stackbar-chart
+        *ngIf="semestersGraphData.datapoints.length"
+        [dataPoints]="semestersGraphData.datapoints"
+        [axis]="semestersGraphData.axis"
+        [chartId]="'chart1'"
+      />
+    </div>
   </div>
 </div>
