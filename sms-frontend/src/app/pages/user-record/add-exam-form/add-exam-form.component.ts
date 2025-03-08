@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnInit, Output, output } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -55,6 +55,7 @@ interface AutoCompleteCompleteEvent {
 export class AddExamFormComponent implements OnInit {
   router = inject(ActivatedRoute);
   store = inject(Store);
+  @Output() fetchExams = new EventEmitter<number>();
 
   loader$: Observable<any> | undefined;
   loader: boolean = false;
@@ -115,6 +116,8 @@ export class AddExamFormComponent implements OnInit {
     this.isSuccess$.subscribe((data) => {
       console.log("IS SUCCESS::",data)
       this.isSuccess = data;
+      console.log(this.examForm.value.semester_number)
+      data && this.fetchExams.emit(this.examForm.value.semester_number.code);
       data && this.examForm.reset();
     });
   }

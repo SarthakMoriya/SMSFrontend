@@ -89,7 +89,6 @@ export class AddExamComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.form.value);
     const { exam_code, exam_name, semester, min_marks, max_marks } =
       this.form.value;
     const { code } = semester as any;
@@ -101,7 +100,6 @@ export class AddExamComponent implements OnInit, OnDestroy {
       course_id: this.selectedCourseId,
       exam_code: exam_code,
     };
-    console.log(obj);
     this.store.dispatch(addCourseExam(obj));
   }
   handleCourseSelect(event: any) {
