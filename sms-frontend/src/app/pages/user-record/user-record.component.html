@@ -1,7 +1,7 @@
 <div class="mx-16">
   <app-user-profile />
   <div class="">
-    <app-add-exam-form />
+    <app-add-exam-form (fetchExams)="fetchSemesterExams($event)" />
   </div>
   <app-semester-total />
 
