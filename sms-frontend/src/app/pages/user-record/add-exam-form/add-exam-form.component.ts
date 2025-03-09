@@ -24,7 +24,6 @@ import { examStateLoaderSelector, examStateModalSelector } from '../../../../sto
 import {
   addExam,
   startLoader,
-  stopLoader,
 } from '../../../../store/exams/exam.actions';
 import { ExamBody } from '../../../models/exam.model';
 

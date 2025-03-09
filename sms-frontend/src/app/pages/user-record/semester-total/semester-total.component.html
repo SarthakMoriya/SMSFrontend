@@ -18,7 +18,7 @@
       </ng-template>
       <ng-template #body let-semester>
         <tr>
-          <td>{{ semester.semester_number }}</td>
+          <td>{{ semester.semester_number }} ({{semester.exam_type=='mt'?'pre':'final'}})</td>
           <td>{{ semester.obt_marks }}</td>
           <td>{{ semester.total_marks }}</td>
           <td>{{ semester.overall_percentage }}%</td>
