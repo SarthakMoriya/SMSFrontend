@@ -16,6 +16,7 @@ export class SemesterTotalComponent implements OnInit, OnDestroy {
   private http = inject(RecordsService);
 
   private subscription: Subscription = new Subscription();
+  private isExamAddedSub:Subscription=new Subscription();
   userData: Record | any = {
     stu_name: '',
     date_enrolled: '',
@@ -31,13 +32,18 @@ export class SemesterTotalComponent implements OnInit, OnDestroy {
     this.subscription = this.userRecordParentSrv.recordData.subscribe(
       (data) => {
         this.userData = data;
-        console.log(this.userData);
       }
     );
+    this.isExamAddedSub=this.userRecordParentSrv.examAddedNotify.subscribe(()=>{
+      console.log("LISTENING TO EXAM ADD")
+      this.fetchSemesterTotal();
+    })
+
     this.fetchSemesterTotal();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe(); // Cancel the subscription
+    this.isExamAddedSub.unsubscribe(); // Cancel the subscription
   }
 
   async fetchSemesterTotal() {
@@ -45,7 +51,6 @@ export class SemesterTotalComponent implements OnInit, OnDestroy {
       this.userData.id,
       this.userData.course
     );
-    console.log(this.semesterTotal)
     this.userRecordParentSrv.updateSemesterGraphData(this.semesterTotal)
   }
 }
