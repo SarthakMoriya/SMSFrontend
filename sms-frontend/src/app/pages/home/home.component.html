@@ -23,43 +23,46 @@
     <div class="uppercase text-xl mb-4 font-semibold">
       {{ courses.courseCode }}
     </div>
-    <div class="flex gap-14">
+    <div class="flex gap-7">
       <div
-        class="flex items-start justify-center"
+        class="flex w-1/5 justify-center cursor-pointer max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-200"
         *ngFor="let record of courses.records"
         (click)="onRecordsClick(record)"
       >
-        <div
-          class="max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg border border-gray-200"
-        >
-          <div class="flex items-center space-x-4">
-            <!-- Student Image -->
-            <div
-              class="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-300"
-            >
-              <img
-                [src]="record.image_url"
-                alt="Student Image"
-                class="w-full h-full object-cover"
-              />
-            </div>
+        <div class="flex items-center space-x-4">
+          <!-- Student Image -->
+          <div
+            class="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-300"
+          >
+            <img
+              [src]="record.image_url"
+              alt="Student Image"
+              class="w-full h-full object-cover"
+            />
+          </div>
 
-            <!-- Student Info -->
-            <div>
-              <!-- Name -->
-            </div>
-            <div class="">
-              <h2 class="text-lg font-semibold text-gray-800">
-                {{ record.stu_name }}
-              </h2>
-              <!-- Roll Number -->
-              <p class="text-sm text-gray-600">Roll No: {{ record.rollno }}</p>
-              <!-- Admission Date -->
-              <p class="text-sm text-gray-600">Batch: 2021-24</p>
-            </div>
+          <!-- Student Info -->
+          <div>
+            <!-- Name -->
+          </div>
+          <div class="">
+            <h2 class="text-lg font-semibold text-gray-800">
+              {{ record.stu_name }}
+            </h2>
+            <!-- Roll Number -->
+            <p class="text-sm text-gray-600">Roll No: {{ record.rollno }}</p>
+            <!-- Admission Date -->
+            <p class="text-sm text-gray-600">Batch: 2021-24</p>
           </div>
         </div>
       </div>
     </div>
+    @if(!courses.records.length){
+    <div
+      class="flex items-center justify-center w-full h-24 bg-gray-600 rounded-lg shadow-md"
+    >
+      <p class="text-gray-300 text-xl font-bold">No records available</p>
+    </div>
+    }
   </div>
 </div>

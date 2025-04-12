@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { examStateLoaderSelector, examStateModalSelector } from '../../../../store/exams/exam.selector';
 import {
   addExam,
@@ -57,9 +57,11 @@ export class AddExamFormComponent implements OnInit {
   @Output() fetchExams = new EventEmitter<number>();
 
   loader$: Observable<any> | undefined;
+  loaderSubscription: Subscription | undefined;
   loader: boolean = false;
 
   isSuccess$:Observable<boolean> | undefined;
+  isSuccessSubscription: Subscription | undefined;
   isSuccess:boolean = false;
 
   examForm: FormGroup = new FormGroup({
@@ -97,6 +99,7 @@ export class AddExamFormComponent implements OnInit {
   selectedSemester = 'Semester-1';
   visible: boolean = false;
 
+
   ngOnInit() {
     const { queryParams } = this.router.snapshot;
     this.student_id = queryParams['studId'];
@@ -105,14 +108,16 @@ export class AddExamFormComponent implements OnInit {
 
 
     this.loader$ = this.store.select(examStateLoaderSelector);
-    this.loader$.subscribe((data) => {
+    this.loaderSubscription=this.loader$.subscribe((data) => {
       console.log("LOADER:",data)
       this.loader = data;
     });
 
+    
+
 
     this.isSuccess$ = this.store.select(examStateModalSelector);
-    this.isSuccess$.subscribe((data) => {
+    this.isSuccessSubscription=this.isSuccess$.subscribe((data) => {
       console.log("IS SUCCESS::",data)
       this.isSuccess = data;
       console.log(this.examForm.value.semester_number)
@@ -121,16 +126,22 @@ export class AddExamFormComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.loaderSubscription?.unsubscribe();
+    this.isSuccessSubscription?.unsubscribe();
+  }
+
   showDialog() {
     this.visible = true;
   }
 
   onSubmit() {
     let obj: ExamBody = {
+      exam_id: undefined,
       student_id: this.student_id,
       course_name: this.course_name,
       teacher_id: this.teacher_id,
-      semester_number: this.examForm.value.semester_number.code,
+      semester_no: this.examForm.value.semester_number.code,
       exam_type: this.examForm.value.exam_type.code,
       exam_name: this.examForm.value.exam_name,
       obt_marks: this.examForm.value.obt_marks,

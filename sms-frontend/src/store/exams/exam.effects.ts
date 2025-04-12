@@ -7,6 +7,7 @@ import {
   isSuccess,
   startLoader,
   stopLoader,
+  updateExam,
 } from './exam.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
@@ -19,8 +20,7 @@ export class ExamEffects {
   private examService = inject(ExamsService);
   private toastSrv = inject(ToastService);
   private store = inject(Store);
-  private userRecSrv=inject(UserRecordService)
-  
+  private userRecSrv = inject(UserRecordService);
 
   addExam$ = createEffect(() => {
     return this.action$.pipe(
@@ -39,6 +39,30 @@ export class ExamEffects {
           catchError((error) => {
             this.store.dispatch(isFailure());
             this.toastSrv.showError('Failed to add exam!');
+            return of(stopLoader());
+          })
+        );
+      })
+    );
+  });
+
+  updateExam$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(updateExam),
+      switchMap(({ examBody }) => {
+        startLoader();
+        return this.examService.updateExam(examBody).pipe(
+          map((response) => {
+            if (!response) {
+            }
+            this.store.dispatch(isSuccess());
+            this.toastSrv.showSuccess('Exam updated successfully');
+            // this.userRecSrv.updateExamAddedNotification();
+            return stopLoader();
+          }),
+          catchError((error) => {
+            this.store.dispatch(isFailure());
+            this.toastSrv.showError('Failed to update exam!');
             return of(stopLoader());
           })
         );

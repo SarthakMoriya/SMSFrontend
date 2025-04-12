@@ -21,13 +21,13 @@ import { EditExamComponent } from './edit-exam/edit-exam.component';
     TableModule,
     CommonModule,
     SemesterTotalComponent,
-    StackbarChartComponent,
     UserProfileComponent,
   ],
   templateUrl: './user-record.component.html',
   styleUrl: './user-record.component.scss',
 })
 export class UserRecordComponent implements OnInit {
+
   service = inject(RecordsService);
   router = inject(ActivatedRoute);
   userRecordSrv = inject(UserRecordService);
@@ -37,6 +37,7 @@ export class UserRecordComponent implements OnInit {
   isAddingExam: boolean = false;
   isEditingExam: boolean = false;
   semestersGraphData: any = {};
+  editingExam: any = {};
 
   semesters = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedSemester = 0;
@@ -83,11 +84,16 @@ export class UserRecordComponent implements OnInit {
       this.userData.course,
       semester_number
     );
-    console.log(this.exams);
   }
 
   openEditModal(exam:any){
+    console.log("AJI LUND MERA")
     this.isEditingExam=true;
+    console.log("THIS>ISEDITINGEXAM",this.isEditingExam)
+    this.editingExam = exam;
     console.log(exam)
   }
+  onEditClose() {
+    this.isEditingExam=false;
+    }
 }

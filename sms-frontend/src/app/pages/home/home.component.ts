@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
     this.courseRecords$.subscribe((data) => {
       this.courseRecords = data.courseRecords;
-      console.log(this.courseRecords);
+      console.log(data)
     });
   }
   onVariableChange(event: any) {

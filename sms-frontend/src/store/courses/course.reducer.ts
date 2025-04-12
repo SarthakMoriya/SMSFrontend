@@ -37,7 +37,7 @@ export const courseReducer = createReducer(
         index === oldCCRecordsIndex
           ? {
               ...cr,
-              records: [...cr.records, ...payload.body.records], // Combine old and new records immutably
+              records: [...payload.body.records], // Combine old and new records immutably
             }
           : cr
       );

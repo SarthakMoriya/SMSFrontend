@@ -5,6 +5,8 @@
       [(visible)]="visible"
       [style]="{ width: '35rem', 'overflow-y': 'none !important' }"
       [contentStyle]="{ 'overflow-y': 'visible' }"
+      closeOnEscape="true"
+      (onHide)="onClose()"
     >
       <div class="card flex flex-wrap justify-center items-end gap-4">
         <form [formGroup]="examForm" (ngSubmit)="onSubmit()">

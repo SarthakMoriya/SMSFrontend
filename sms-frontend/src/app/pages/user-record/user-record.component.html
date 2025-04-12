@@ -5,7 +5,7 @@
   </div>
   @if (isEditingExam) {
   <div class="">
-    <app-edit-exam (fetchExams)="fetchSemesterExams($event)" />
+    <app-edit-exam (fetchExams)="fetchSemesterExams($event)" (close)="onEditClose()" [data]="editingExam" />
   </div>
   }
   <app-semester-total />
@@ -50,7 +50,9 @@
       </ng-template>
     </p-table>
   </div>
-  <div class="flex gap-4">
+  <br>
+  <br>
+  <!-- <div class="flex gap-4">
     <div class="w-3/12">
       <div class="" id="chart"></div>
       <app-stackbar-chart
@@ -69,5 +71,5 @@
         [chartId]="'chart1'"
       />
     </div>
-  </div>
+  </div> -->
 </div>
