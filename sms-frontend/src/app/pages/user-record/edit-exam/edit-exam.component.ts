@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, input, OnInit, Output, output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  input,
+  OnInit,
+  Output,
+  output,
+} from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -19,22 +28,16 @@ import { CommonModule } from '@angular/common';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { examStateLoaderSelector, examStateModalSelector } from '../../../../store/exams/exam.selector';
+import { Observable } from 'rxjs';
 import {
-  addExam,
-  startLoader,
-} from '../../../../store/exams/exam.actions';
+  examStateLoaderSelector,
+  examStateModalSelector,
+} from '../../../../store/exams/exam.selector';
+import { addExam, startLoader, updateExam } from '../../../../store/exams/exam.actions';
 import { ExamBody } from '../../../models/exam.model';
-import { selectAdminState } from '../../../../store/admin/admin.selector';
-
-interface AutoCompleteCompleteEvent {
-  originalEvent: Event;
-  query: string;
-}
 
 @Component({
-  selector: 'app-add-exam-form',
+  selector: 'app-edit-exam',
   imports: [
     Dialog,
     ButtonModule,
@@ -49,27 +52,27 @@ interface AutoCompleteCompleteEvent {
     DatePickerModule,
     ProgressSpinner,
   ],
-  templateUrl: './add-exam-form.component.html',
-  styleUrl: './add-exam-form.component.scss',
+  templateUrl: './edit-exam.component.html',
+  styleUrl: './edit-exam.component.scss',
 })
-export class AddExamFormComponent implements OnInit {
+export class EditExamComponent implements OnInit {
   router = inject(ActivatedRoute);
   store = inject(Store);
   @Output() fetchExams = new EventEmitter<number>();
+  @Output() close = new EventEmitter<void>();
+  @Input() data: any = {};
 
   loader$: Observable<any> | undefined;
-  loaderSubscription: Subscription | undefined;
   loader: boolean = false;
 
-  isSuccess$:Observable<boolean> | undefined;
-  isSuccessSubscription: Subscription | undefined;
-  isSuccess:boolean = false;
+  isSuccess$: Observable<boolean> | undefined;
+  isSuccess: boolean = false;
 
   examForm: FormGroup = new FormGroup({
     exam_name: new FormControl('', { validators: [Validators.required] }),
     total_marks: new FormControl('', { validators: [Validators.required] }),
     obt_marks: new FormControl('', { validators: [Validators.required] }),
-    semester_number: new FormControl('Semester-1', {
+    semester_number: new FormControl('1', {
       validators: [Validators.required],
     }),
     exam_type: new FormControl('Mid-Term', {
@@ -79,7 +82,6 @@ export class AddExamFormComponent implements OnInit {
       validators: [Validators.required],
     }),
   });
-
   courses: any[] = [
     { name: 'Semester-1', code: '1' },
     { name: 'Semester-2', code: '2' },
@@ -90,8 +92,6 @@ export class AddExamFormComponent implements OnInit {
     { name: 'Semester-7', code: '7' },
     { name: 'Semester-8', code: '8' },
   ];
-  setSemeters$:Observable<any> | undefined;
-  setSemeters: any[any] = [];
   examSessions = [
     { name: 'Mid-Term', code: 'mt' },
     { name: 'Final-Term', code: 'ft' },
@@ -101,48 +101,28 @@ export class AddExamFormComponent implements OnInit {
   teacher_id: number | undefined;
   course_name: string | undefined;
   selectedSemester = 'Semester-1';
-  visible: boolean = false;
-
+  visible: boolean = true;
 
   ngOnInit() {
-    console.log("HI THeRE")
+    this.visible = true;
     const { queryParams } = this.router.snapshot;
     this.student_id = queryParams['studId'];
     this.teacher_id = parseInt(queryParams['teacher_id']);
     this.course_name = queryParams['course'];
 
-
     this.loader$ = this.store.select(examStateLoaderSelector);
-    this.loaderSubscription=this.loader$.subscribe((data) => {
-      console.log("LOADER:",data)
+    this.loader$.subscribe((data) => {
+      console.log('LOADER:', data);
       this.loader = data;
     });
 
     this.isSuccess$ = this.store.select(examStateModalSelector);
-    this.isSuccessSubscription=this.isSuccess$.subscribe((data) => {
-      console.log("IS SUCCESS::",data)
+    this.isSuccess$.subscribe((data) => {
+      console.log('IS SUCCESS::', data);
       this.isSuccess = data;
-      console.log(this.examForm.value.semester_number)
-      data && this.fetchExams.emit(this.examForm.value.semester_number.code);
-      data && this.examForm.reset();
     });
 
-    this.setSemeters$=this.store.select(selectAdminState)
-    this.setSemeters$.subscribe((data) => {
-      this.setSemeters = data.courses.filter((item: any) => item.code == this.course_name);
-      if (this.setSemeters.length > 0) {
-        this.courses = Array.from({ length: this.setSemeters[0].semesters }, (_, i) => i + 1).map((item: any) => {
-          return { name: `Semester-${item}`, code: item };
-        });
-      } else {
-        console.error('No matching courses found for the given course name.');
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.loaderSubscription?.unsubscribe();
-    this.isSuccessSubscription?.unsubscribe();
+    this.patchForm();
   }
 
   showDialog() {
@@ -151,7 +131,7 @@ export class AddExamFormComponent implements OnInit {
 
   onSubmit() {
     let obj: ExamBody = {
-      exam_id: undefined,
+      exam_id: this.data.exam_id,
       student_id: this.student_id,
       course_name: this.course_name,
       teacher_id: this.teacher_id,
@@ -165,6 +145,28 @@ export class AddExamFormComponent implements OnInit {
       ),
     };
     this.store.dispatch(startLoader());
-    this.store.dispatch(addExam({ examBody: obj }));
+    this.store.dispatch(updateExam({ examBody: obj }));
+    this.fetchExams.emit(this.examForm.value.semester_number.code);
+    this.onClose();
+  }
+
+  patchForm() {
+    console.log(this.data);
+    console.log(this.examForm.value);
+    this.examForm.patchValue({
+      exam_name: this.data.exam_name,
+      total_marks: this.data.total_marks,
+      obt_marks: this.data.obt_marks,
+      semester_number: this.courses[this.data.semester_number - 1],
+      exam_type: this.examSessions.find(
+        (item) => item.code === this.data.exam_type
+      ),
+      exam_date: new Date(this.data.exam_date),
+    });
+  }
+
+  onClose() {
+    this.visible = false;
+    this.close.emit();
   }
 }

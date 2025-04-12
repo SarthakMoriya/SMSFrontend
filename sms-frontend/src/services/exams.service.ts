@@ -23,6 +23,14 @@ export class ExamsService {
       }
     );
   }
+  updateExam(examBody: ExamBody): Observable<ExamAddSuccess> {
+    return this.service.put<ExamAddSuccess>(
+      `http://localhost:3002/exams/update-exam/${examBody.course_name}`,
+      {
+        ...examBody,
+      }
+    );
+  }
   async getSemesterExams(
     studentId: number,
     db: string,

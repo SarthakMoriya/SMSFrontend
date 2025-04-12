@@ -10,22 +10,24 @@ import { SemesterTotalComponent } from './semester-total/semester-total.componen
 import { UserRecordService } from '../../../services/pages/user-record.service';
 import { StackbarChartComponent } from './stackbar-chart/stackbar-chart.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { EditExamComponent } from './edit-exam/edit-exam.component';
 
 @Component({
   selector: 'app-user-record',
   imports: [
     ButtonModule,
     AddExamFormComponent,
+    EditExamComponent,
     TableModule,
     CommonModule,
     SemesterTotalComponent,
-    StackbarChartComponent,
     UserProfileComponent,
   ],
   templateUrl: './user-record.component.html',
   styleUrl: './user-record.component.scss',
 })
 export class UserRecordComponent implements OnInit {
+
   service = inject(RecordsService);
   router = inject(ActivatedRoute);
   userRecordSrv = inject(UserRecordService);
@@ -33,7 +35,9 @@ export class UserRecordComponent implements OnInit {
 
   userData: any = {};
   isAddingExam: boolean = false;
+  isEditingExam: boolean = false;
   semestersGraphData: any = {};
+  editingExam: any = {};
 
   semesters = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedSemester = 0;
@@ -56,7 +60,6 @@ export class UserRecordComponent implements OnInit {
     this.userRecordSrv.updateData(this.userData);
 
     this.userRecordSrv.semesterGraph.subscribe((data) => {
-      console.log(data);
       if (data) {
         let datapoints = data.map((item: any) => item.overall_percentage);
         let axis = data.map((item: any) => item.semester_number);
@@ -64,25 +67,33 @@ export class UserRecordComponent implements OnInit {
           datapoints,
           axis,
         };
-        console.log(this.semestersGraphData)
       }
     });
   }
   addExam() {
     this.isAddingExam = true;
-    console.log(this.isAddingExam);
   }
 
   async fetchSemesterExams(semester_number: number) {
-    if (this.selectedSemester === semester_number) {
-      return;
-    }
+    // if (this.selectedSemester === semester_number) {
+    //   return;
+    // }
     this.selectedSemester = semester_number;
     this.exams = await this.examsSrv.getSemesterExams(
       this.userData.id,
       this.userData.course,
       semester_number
     );
-    console.log(this.exams);
   }
+
+  openEditModal(exam:any){
+    console.log("AJI LUND MERA")
+    this.isEditingExam=true;
+    console.log("THIS>ISEDITINGEXAM",this.isEditingExam)
+    this.editingExam = exam;
+    console.log(exam)
+  }
+  onEditClose() {
+    this.isEditingExam=false;
+    }
 }

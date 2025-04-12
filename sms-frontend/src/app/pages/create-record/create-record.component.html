@@ -62,8 +62,7 @@
               placeholder="Course name"
               formControlName="course"
             >
-              <option value="bsccs">B.Sc-CS</option>
-              <option value="bscit">B.Sc-IT</option>
+              <option *ngFor="let course of courses" value="{{course.code}}">{{course.name}}</option>
             </select>
           </div>
           <div class="w-full">
