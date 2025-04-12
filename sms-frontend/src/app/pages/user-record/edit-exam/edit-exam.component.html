@@ -1,0 +1,85 @@
+<div class="card flex justify-center">
+    <p-dialog
+      header="Add Exam"
+      [modal]="true"
+      [(visible)]="visible"
+      [style]="{ width: '35rem', 'overflow-y': 'none !important' }"
+      [contentStyle]="{ 'overflow-y': 'visible' }"
+    >
+      <div class="card flex flex-wrap justify-center items-end gap-4">
+        <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+          <div class="flex gap-4 mb-4">
+            <div class="card flex justify-center">
+              <p-select
+                [options]="courses"
+                formControlName="semester_number"
+                optionLabel="name"
+                placeholder="Semester"
+                class="w-full md:w-56"
+              />
+            </div>
+            <div class="card flex justify-center">
+              <p-select
+                [options]="examSessions"
+                formControlName="exam_type"
+                optionLabel="name"
+                placeholder="Exam Type"
+                class="w-full md:w-56"
+              />
+            </div>
+          </div>
+          <div class="mb-4 card flex justify-center">
+            <p-datepicker
+              class="w-full"
+              formControlName="exam_date"
+              placeholder="Exam Date"
+            />
+          </div>
+          <p-inputgroup class="mb-2">
+            <p-floatlabel variant="in">
+              <input pInputText id="over_label" formControlName="exam_name" />
+              <label for="over_label">Exam Name*</label>
+            </p-floatlabel>
+          </p-inputgroup>
+          <p-inputgroup class="mb-2">
+            <p-floatlabel variant="in">
+              <input
+                pInputText
+                id="over_label"
+                formControlName="total_marks"
+                type="number"
+              />
+              <label for="over_label">Total Marks*</label>
+            </p-floatlabel>
+          </p-inputgroup>
+          <p-inputgroup class="mb-4">
+            <p-floatlabel variant="in">
+              <input
+                pInputText
+                id="over_label"
+                formControlName="obt_marks"
+                type="number"
+              />
+              <label for="over_label">Obtained Marks*</label>
+            </p-floatlabel>
+          </p-inputgroup>
+  
+          <p-button
+            label="Add Exam"
+            type="submit"
+            [disabled]="examForm.invalid || loader"
+            class="disabled:cursor-not-allowed"
+          />
+        </form>
+        <div class="card flex justify-center" *ngIf="loader">
+          <p-progress-spinner
+            strokeWidth="8"
+            fill="transparent"
+            animationDuration=".5s"
+            [style]="{ width: '50px', height: '50px' }"
+          />
+        </div>
+      </div>
+    </p-dialog>
+  </div>
+  

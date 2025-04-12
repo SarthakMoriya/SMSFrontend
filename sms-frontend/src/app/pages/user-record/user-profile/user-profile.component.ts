@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   public userObjSub = new Subscription();
+  public addExamNotify = new Subscription();
   public userObj: StudentRecord | undefined; // one saved in params
 
   userData!: StudentRecord; // to be used in html
@@ -29,6 +30,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.userObjSub = this.service.recordData.subscribe((data) => {
       this.userObj = data;
     });
+
+    this.addExamNotify=this.service.examAddedNotify.subscribe(data=>{
+      console.log("Listening to add exam obv in user-profile-component")
+      this.getStudentProfileData();
+    })
+
     this.subscriptions.push(this.userObjSub);
     this.getStudentProfileData();
   }
