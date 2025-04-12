@@ -3,6 +3,11 @@
   <div class="">
     <app-add-exam-form (fetchExams)="fetchSemesterExams($event)" />
   </div>
+  @if (isEditingExam) {
+  <div class="">
+    <app-edit-exam (fetchExams)="fetchSemesterExams($event)" />
+  </div>
+  }
   <app-semester-total />
 
   <div class="flex items-start justify-evenly mt-4">
@@ -31,6 +36,7 @@
           <th pSortableColumn="exam_type" style="width: 20%">
             Exam Type<p-sortIcon field="exam_type" />
           </th>
+          <th pSortableColumn="exam_type" style="width: 20%"></th>
         </tr>
       </ng-template>
       <ng-template #body let-exam>
@@ -39,6 +45,7 @@
           <td>{{ exam.obt_marks }}</td>
           <td>{{ exam.total_marks }}</td>
           <td>{{ exam.exam_type == "mt" ? "mid-term" : "final" }}</td>
+          <td (click)="openEditModal(exam)">Edit</td>
         </tr>
       </ng-template>
     </p-table>
