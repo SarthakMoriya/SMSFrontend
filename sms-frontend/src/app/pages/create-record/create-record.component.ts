@@ -14,6 +14,7 @@ import { UserDetailsState } from '../../models/user.model';
 import { createRecord } from '../../../store/record/record.actions';
 import { Record } from '../../models/record.model';
 import { ImageUploaderComponent } from '../../components/image-uploader/image-uploader.component';
+import { selectAdminState } from '../../../store/admin/admin.selector';
 
 @Component({
   selector: 'app-create-record',
@@ -25,18 +26,26 @@ export class CreateRecordComponent implements OnInit {
   user$: Observable<UserDetailsState> | undefined;
   user: UserDetailsState | undefined;
 
+  courses$:Observable<any> | undefined;
+  courses: any=[];
+
   image_url: string=''
 
   constructor(private store: Store) {}
 
   ngOnInit() {
     this.user$ = this.store.select(selectUserDetails);
-    console.log(this.user$);
 
     this.user$.subscribe((userDetails) => {
-      console.log(userDetails);
       this.user = userDetails;
     });
+
+    this.courses$=this.store.select(selectAdminState)
+    this.courses$.subscribe((res)=>{
+      console.log(res)
+      this.courses=res.courses;
+    })
+    
   }
 
   form = new FormGroup({

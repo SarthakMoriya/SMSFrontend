@@ -14,4 +14,5 @@ export class CourseService {
       `http://localhost:3001/records/courserecords/${courseCode}`
     );
   }
+
 }

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectUserToken } from '../store/auth/auth.selector';
 import { Toast } from 'primeng/toast';
+import { getCourses } from '../store/admin/admin.actions';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,Toast],
@@ -17,5 +18,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.token$ = this.store.select(selectUserToken);
+    this.store.dispatch(getCourses())
   }
 }

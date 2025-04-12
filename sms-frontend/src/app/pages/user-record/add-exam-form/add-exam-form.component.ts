@@ -26,6 +26,7 @@ import {
   startLoader,
 } from '../../../../store/exams/exam.actions';
 import { ExamBody } from '../../../models/exam.model';
+import { selectAdminState } from '../../../../store/admin/admin.selector';
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -78,6 +79,7 @@ export class AddExamFormComponent implements OnInit {
       validators: [Validators.required],
     }),
   });
+
   courses: any[] = [
     { name: 'Semester-1', code: '1' },
     { name: 'Semester-2', code: '2' },
@@ -88,6 +90,8 @@ export class AddExamFormComponent implements OnInit {
     { name: 'Semester-7', code: '7' },
     { name: 'Semester-8', code: '8' },
   ];
+  setSemeters$:Observable<any> | undefined;
+  setSemeters: any[any] = [];
   examSessions = [
     { name: 'Mid-Term', code: 'mt' },
     { name: 'Final-Term', code: 'ft' },
@@ -101,6 +105,7 @@ export class AddExamFormComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("HI THeRE")
     const { queryParams } = this.router.snapshot;
     this.student_id = queryParams['studId'];
     this.teacher_id = parseInt(queryParams['teacher_id']);
@@ -113,9 +118,6 @@ export class AddExamFormComponent implements OnInit {
       this.loader = data;
     });
 
-    
-
-
     this.isSuccess$ = this.store.select(examStateModalSelector);
     this.isSuccessSubscription=this.isSuccess$.subscribe((data) => {
       console.log("IS SUCCESS::",data)
@@ -124,6 +126,14 @@ export class AddExamFormComponent implements OnInit {
       data && this.fetchExams.emit(this.examForm.value.semester_number.code);
       data && this.examForm.reset();
     });
+
+    this.setSemeters$=this.store.select(selectAdminState)
+    this.setSemeters$.subscribe((data) => {
+      this.setSemeters = data.courses.filter((item: any) => item.code== this.course_name);
+      this.courses=Array.from({length:this.setSemeters[0].semesters},(_,i)=>i+1).map((item:any)=>{
+        return {name:`Semester-${item}`, code:item} 
+      })
+    })
   }
 
   ngOnDestroy() {
