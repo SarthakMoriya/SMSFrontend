@@ -129,11 +129,15 @@ export class AddExamFormComponent implements OnInit {
 
     this.setSemeters$=this.store.select(selectAdminState)
     this.setSemeters$.subscribe((data) => {
-      this.setSemeters = data.courses.filter((item: any) => item.code== this.course_name);
-      this.courses=Array.from({length:this.setSemeters[0].semesters},(_,i)=>i+1).map((item:any)=>{
-        return {name:`Semester-${item}`, code:item} 
-      })
-    })
+      this.setSemeters = data.courses.filter((item: any) => item.code == this.course_name);
+      if (this.setSemeters.length > 0) {
+        this.courses = Array.from({ length: this.setSemeters[0].semesters }, (_, i) => i + 1).map((item: any) => {
+          return { name: `Semester-${item}`, code: item };
+        });
+      } else {
+        console.error('No matching courses found for the given course name.');
+      }
+    });
   }
 
   ngOnDestroy() {

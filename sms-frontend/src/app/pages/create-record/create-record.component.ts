@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -22,11 +22,12 @@ import { selectAdminState } from '../../../store/admin/admin.selector';
   templateUrl: './create-record.component.html',
   styleUrl: './create-record.component.scss',
 })
-export class CreateRecordComponent implements OnInit {
+export class CreateRecordComponent implements OnInit, OnDestroy {
   user$: Observable<UserDetailsState> | undefined;
   user: UserDetailsState | undefined;
 
-  courses$:Observable<any> | undefined;
+  courses$: Observable<any> | undefined;
+  private coursesSubscription: any;
   courses: any=[];
 
   image_url: string=''
@@ -41,11 +42,17 @@ export class CreateRecordComponent implements OnInit {
     });
 
     this.courses$=this.store.select(selectAdminState)
-    this.courses$.subscribe((res)=>{
-      console.log(res)
-      this.courses=res.courses;
-    })
+    this.coursesSubscription = this.courses$.subscribe((res) => {
+      console.log(res);
+      this.courses = res.courses;
+    });
     
+  }
+
+  ngOnDestroy() {
+    if (this.coursesSubscription) {
+      this.coursesSubscription.unsubscribe();
+    }
   }
 
   form = new FormGroup({
