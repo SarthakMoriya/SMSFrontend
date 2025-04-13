@@ -4,10 +4,13 @@ import { UserRecordService } from '../../../../services/pages/user-record.servic
 import { StudentRecord } from '../../../models/record.model';
 import { RecordsService } from '../../../../services/record.service';
 import { CommonModule, NgStyle } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { recordDelete } from '../../../../store/record/record.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [NgStyle, CommonModule],
+  imports: [NgStyle, CommonModule,ButtonModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
 })
@@ -25,6 +28,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   percentageProgressBar = `conic-gradient(gray ${'10'}%, transparent 0%)`;
   semesterProgressBar = `conic-gradient(gray ${'88'}%, transparent 0%)`;
+
+  constructor(private store:Store) {}
 
   ngOnInit(): void {
     this.userObjSub = this.service.recordData.subscribe((data) => {
@@ -71,5 +76,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       .finally(() => {
         this.userDataLoader = false;
       });
+  }
+
+  deleteRecord(data:any){
+    console.log(data)
+    this.store.dispatch(recordDelete({id:data.studId}))
   }
 }

@@ -17,6 +17,10 @@ export class RecordsService {
     });
   }
 
+  deleteRecord(id:number): Observable<SuccessResponse> {
+    return this.http.delete<SuccessResponse>(`http://localhost:3001/records/record/${id}`);
+  }
+
   getRecordExams(course: string, stuId: number) {
     this.service
       .getData(`http://localhost:3002/exams/studentexams/${stuId}/${course}`)

@@ -6,5 +6,9 @@
     {
         "name":"B.Sc-CS",
         "code":"bsccs"
+    },
+    {
+        "name":"M.Sc-CS",
+        "code":"msccs"
     }
 ]
