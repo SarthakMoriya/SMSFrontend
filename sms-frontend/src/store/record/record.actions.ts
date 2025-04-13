@@ -15,3 +15,7 @@ export const courseSelect=createAction(
   '[User] CourseSelect',
   props<{course:string}>()
 )
+
+export const recordDelete = createAction('[User] RecordDelete', props<{ id: number }>());
+export const recordDeleteS = createAction('[User] RecordDeleteS');
+export const recordDeleteF = createAction('[User] RecordDeleteF')

@@ -6,6 +6,9 @@ import {
   createRecord,
   createRecordFail,
   createRecordSuccess,
+  recordDelete,
+  recordDeleteF,
+  recordDeleteS,
 } from './record.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { Record } from '../../app/models/record.model';
@@ -34,4 +37,21 @@ export class RecordsEffects {
       })
     )
   );
+  deleteRecord$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(recordDelete),
+      switchMap(({id})=>{
+        return this.recordsService.deleteRecord(id).pipe(
+          map(response=>{
+            if(!response){}
+            this.router.navigate(['']);
+            return recordDeleteS()
+          }),
+          catchError((error)=>{
+            return of(recordDeleteF())
+          })
+        )
+      })
+    )
+  )
 }
